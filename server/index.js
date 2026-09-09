@@ -208,7 +208,11 @@ const refineBotResponse = async (prompt, onToken) => {
       total_tokens: usage?.total_tokens,
     };
   } catch (error) {
-    console.error("Error in ChatGPT Request:", error?.response?.data || error?.message);
+       console.error('Error in ChatGPT Request:', {
+       status: error?.response?.status,
+       statusText: error?.response?.statusText,
+       message: error?.message,
+   });
     // Tokens are already on the wire. Swallowing here would replace the answer the
     // user watched stream in with the NO_ANSWER fallback -- and save that to history.
     if (content) throw error;
